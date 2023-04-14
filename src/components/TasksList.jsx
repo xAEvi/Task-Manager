@@ -5,23 +5,31 @@ import '../stylesheets/TasksList.css'
 
 const TasksLists = () => {
 
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('tasks')) || []);
+
+  const updateTaskList = updatedTasks => {
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    setTasks(updatedTasks);
+  }
 
   const addTask = task => {
-    setTasks([task, ...tasks]);
+    const updatedTasks = [task, ...tasks];
+    updateTaskList(updatedTasks);
   };
 
   const deleteTask = id => {
-    setTasks(tasks.filter(task => task.id !== id));
+    const updatedTasks = tasks.filter(task => task.id !== id);
+    updateTaskList(updatedTasks);
   };
 
   const finishTask = id => {
-    setTasks(tasks.map(task => {
+    const updatedTasks = tasks.map(task => {
       if (task.id === id){
         task.finished = !task.finished;
       }
       return task;
-    }));
+    });
+    updateTaskList(updatedTasks);
   };
 
   return (
