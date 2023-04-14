@@ -19,7 +19,7 @@ const TaskForm = props => {
         id: uuidv4(),
         text: input.trim(),
         finished: false
-      }
+      };
   
       props.onSubmit(newTask);
       setInput('');

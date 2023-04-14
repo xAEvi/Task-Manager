@@ -9,7 +9,20 @@ const TasksLists = () => {
 
   const addTask = task => {
     setTasks([task, ...tasks]);
-  }
+  };
+
+  const deleteTask = id => {
+    setTasks(tasks.filter(task => task.id !== id));
+  };
+
+  const finishTask = id => {
+    setTasks(tasks.map(task => {
+      if (task.id === id){
+        task.finished = !task.finished;
+      }
+      return task;
+    }));
+  };
 
   return (
     <>
@@ -22,6 +35,8 @@ const TasksLists = () => {
               id={task.id}
               text={task.text}
               finished={task.finished}
+              deleteTask={deleteTask}
+              finishTask={finishTask}
             />
           )
         }
